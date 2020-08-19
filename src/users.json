@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Octo Kat",
+        "login": "octokat",
+        "followers": [
+            {
+                "login": "knuth"
+            }
+        ]
+    },
+    {
+        "name": "Donald E. Knuth",
+        "login": "awesome-donald",
+        "followers": [
+            {
+                "login": "octokat"
+            },
+            {
+                "login": "rwaldvogel   "
+            }
+        ]
+    },
+    {
+        "name": "Robert C. Martin",
+        "login": "uncleB",
+        "followers": [
+            {
+                "login": "rwaldvogel"
+            }
+        ]
+    },
+    {
+        "name": "Ralf Waldvogel",
+        "login": "rwaldvogel",
+        "followers": [
+        ]
+    }
+]
