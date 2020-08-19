@@ -10,13 +10,13 @@
     },
     {
         "name": "Donald E. Knuth",
-        "login": "awesome-donald",
+        "login": "awesome-knuth",
         "followers": [
             {
                 "login": "octokat"
             },
             {
-                "login": "rwaldvogel   "
+                "login": "rwaldvogel"
             }
         ]
     },
