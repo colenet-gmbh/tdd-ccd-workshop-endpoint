@@ -34,5 +34,15 @@
         "login": "rwaldvogel",
         "followers": [
         ]
+    },
+    {
+        "name": "Marting Schönberger",
+        "login": "maschonber",
+        "followers": [
+            {
+                "login": "rwaldvogel"
+            }
+        ]
     }
+    
 ]
