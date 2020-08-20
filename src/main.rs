@@ -114,15 +114,15 @@ async fn get_mock_user(user_name: web::Path<String>) -> Result<web::Json<MockUse
     }
 }
 
-#[get("/github/{user_name}")]
-async fn get_mock_github_user(user_name: web::Path<String>) -> Result<web::Json<MockUser>> {
+#[get("/github/users/{user_name}")]
+async fn get_mock_github_user(user_name: web::Path<String>) -> Result<web::Json<GithubUser>> {
     use std::time::Duration;
     
     let mut rng: ThreadRng = rand::thread_rng();
     let delay: u64 = rng.gen_range(300, 1200);    
     futures_timer::Delay::new(Duration::from_millis(delay)).await;
 
-    let user = find_user(user_name.to_string())?;
+    let user = find_github_user(user_name.to_string())?;
 
     match user {
         Some(user) => Ok(web::Json(user.clone())),
