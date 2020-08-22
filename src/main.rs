@@ -1,8 +1,6 @@
-use actix_web::{get, web, App, HttpServer, Result, Error};
+use actix_web::{get, web, App, HttpServer, Result};
 use actix_web::error::ErrorNotFound;
-use rand::prelude::*;
 use serde::{Deserialize, Serialize};
-use rand::Rng;
 
 #[derive(Deserialize, Serialize, Clone)]
 pub struct Follower {
@@ -100,12 +98,6 @@ mod test {
 
 #[get("/users/{user_name}")]
 async fn get_mock_user(user_name: web::Path<String>) -> Result<web::Json<MockUser>> {
-    use std::time::Duration;
-    
-    let mut rng: ThreadRng = rand::thread_rng();
-    let delay: u64 = rng.gen_range(300, 1200);    
-    futures_timer::Delay::new(Duration::from_millis(delay)).await;
-
     let user = find_user(user_name.to_string())?;
 
     match user {
@@ -116,18 +108,18 @@ async fn get_mock_user(user_name: web::Path<String>) -> Result<web::Json<MockUse
 
 #[get("/github/users/{user_name}")]
 async fn get_mock_github_user(user_name: web::Path<String>) -> Result<web::Json<GithubUser>> {
-    use std::time::Duration;
-    
-    let mut rng: ThreadRng = rand::thread_rng();
-    let delay: u64 = rng.gen_range(300, 1200);    
-    futures_timer::Delay::new(Duration::from_millis(delay)).await;
-
     let user = find_github_user(user_name.to_string())?;
 
     match user {
         Some(user) => Ok(web::Json(user.clone())),
         None => Err(ErrorNotFound("user does not exist"))
     }
+}
+
+
+#[get("/version")]
+async fn get_version() -> Result<String> {
+    Ok(env!( "CARGO_PKG_VERSION" ).to_string())
 }
 
 #[actix_rt::main]
@@ -142,6 +134,8 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Logger::default())
             .service(get_mock_user)
+            .service(get_mock_github_user)
+            .service(get_version)
     })
     .bind("0.0.0.0:8080")?
     .run()
